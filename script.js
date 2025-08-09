@@ -25,6 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
     tasks.push(Newtask); // Add the new task to the task array
     saveTask(); // Save the updated task array to localStorage
+    renderTasks(Newtask); // Call the renderTasks function to display the new task
     taskInput.value = ""; // Clear the input field
     console.log(tasks); // Log the current task array to the console
   });
@@ -32,9 +33,24 @@ document.addEventListener("DOMContentLoaded", () => {
     // Function to render a task in the list
     const li = document.createElement("li"); // Create a new list item element
     li.setAttribute("data-id", task.id); // Set a custom attribute to store the task ID
+    if (task.completed) {
+      li.classList.add("completed");
+    }
     li.innerHTML = `
     <span>${task.text}</span>
     <button>delete</button>`; // Set the inner HTML of the list item to display the task text
+    li.addEventListener("click", (e) => {
+      if (e.target.tagName === "BUTTON") return;
+      task.completed = !task.completed; // Toggle the completed status of the task when clicked
+      li.classList.toggle("completed"); // Toggle the "completed" class for styling
+      saveTask();
+    });
+    li.querySelector("button").addEventListener("click", (e) => {
+      e.stopPropagation(); // Prevent the click event from bubbling up to the list item
+      tasks = tasks.filter((t) => t.id != task.id);
+      li.remove(); // Remove the list item from the DOM
+      saveTask(); // Save the updated task array to localStorage
+    });
     toDoList.appendChild(li); // Append the list item to the unordered list
   }
   function saveTask() {

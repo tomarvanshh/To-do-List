@@ -83,3 +83,7 @@ li {
 #to-do-list button:hover {
   background-color: #ff0000;
 }
+.completed {
+  text-decoration: line-through;
+  color: #888;
+}
