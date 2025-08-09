@@ -87,3 +87,17 @@ li {
   text-decoration: line-through;
   color: #888;
 }
+@media (max-width: 600px) {
+  .container {
+    width: 90vw;
+  }
+  #task-input {
+    width: 70%;
+  }
+  #add-task-btn {
+    width: 20%;
+  }
+  li {
+    width: 90%;
+  }
+}
